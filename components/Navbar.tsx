@@ -12,8 +12,8 @@ type NavigationElementProps = {
 
 const NavigationElement = ({to, label, char, selected, setSelected} : NavigationElementProps) => {
     return(
-        <Link to={to}>
-        <li className={`flex justify-between items-center relative px-3 py-2.5 cursor-pointer hover:bg-[#111111] hover:text-[#EDEDED] border ${selected === label ? 'border-[#1D1D1D] text-[#EDEDED]' : 'border-transparent'} `} onClick={()=> setSelected(label)}>
+        <Link to={to} onClick={()=> setSelected(label)}>
+        <li className={`flex justify-between items-center relative px-3 py-2.5 cursor-pointer hover:bg-[#111111] hover:text-[#EDEDED] border ${selected === label ? 'border-[#1D1D1D] text-[#EDEDED]' : 'border-transparent'} `}>
             {selected=== label && <span className="w-0.5 bg-[#28FF7E] h-8 absolute left-0"/>}
             {label}
             <p className="text-[#2A2A2A] text-xs">{char}</p>
