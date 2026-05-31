@@ -9,14 +9,20 @@ import Navbar from '../components/Navbar';
 export default function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
-      <Routes>
-        <Route index path='' element={<Index/>}/>
-        <Route path='/workouts' element={<Workouts/>}/>
-        <Route path='/exercises' element={<Exercises/>}/>
-        <Route path='/statistics' element={<Statistics/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-      </Routes>
+      <div className="flex min-h-screen">
+        <aside className="w-1/3 max-w-xs">
+          <Navbar />
+        </aside>
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="/exercises" element={<Exercises />} />
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </main>
+      </div>
     </BrowserRouter>
   )
-};
+}
