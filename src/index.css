@@ -12,3 +12,22 @@ body{
     box-sizing: border-box;
     background-color: #000;
 }
+
+.pulse-dot{
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #28FF7E;
+    animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot{
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.80);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
