@@ -6,9 +6,8 @@ import iconsPaths from '../assets/icons/iconsPaths';
 
 const SidebarHeader = () => {
     return(
-        <div className="flex items-center gap-3 px-5 pb-7 pt-6 border-b border-[#2A2A2A]">
-            <img src='../assets/images/logo.webp' alt="logo" width={40} height={40} className="object-contain"/>
-            <p className="text-white text-lg">Reps</p>
+        <div className="flex items-center gap-3 px-6 py-6 border-b border-[#2A2A2A]">
+            <img src='../assets/images/logo.webp' alt="logo" width={100} height={25} className="object-contain"/>
         </div>
     )
 };
