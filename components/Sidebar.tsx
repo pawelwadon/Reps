@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import Icon from '../components/Icon';
-import PulseDot from '../components/PulseDot';
+import Icon from './Icon';
+import PulseDot from './PulseDot';
 import iconsPaths from '../assets/icons/iconsPaths';
 
 type NavigationElementProps = {
@@ -34,7 +34,7 @@ const currentDate = new Date().toLocaleDateString('pl-PL', {
   month: '2-digit',
 })
 
-export default function Navbar() {
+export default function Sidebar() {
     const [selected, setSelected] = useState<string>('')
 
     return (
