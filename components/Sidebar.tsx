@@ -34,29 +34,36 @@ const currentDate = new Date().toLocaleDateString('pl-PL', {
   month: '2-digit',
 })
 
+const userName:string = 'Jan';
+const userSurname:string = 'Kowalski';
+const user:string = `${userName} ${userSurname}`;
+const userInitial = userName.charAt(0) + userSurname.charAt(0);
+
 export default function Sidebar() {
     const [selected, setSelected] = useState<string>('')
 
     return (
-        <div className="min-h-screen bg-[#0B0B0B] p-3 border-r border-[#2A2A2A]">
+        <div className="min-h-screen relative bg-[#0B0B0B] border-r border-[#2A2A2A]">
             <div className="flex items-center gap-3 px-5 pb-7 pt-6 border-b border-[#2A2A2A]">
                 <img src='../assets/images/logo.webp' alt="logo" width={40} height={40} className="object-contain"/>
                 <p className="text-white text-lg">Reps</p>
             </div>
-            <p className="text-xs uppercase text-[#525252] tracking-[2px] px-3 py-5">Navigation</p>
-            <nav className="min-h-full flex flex-col">
-                <NavigationElement to='/' label="dashboard" char="D" selected={selected} setSelected={setSelected}/>
-                <NavigationElement to='/workouts' label="workouts" char="W" selected={selected} setSelected={setSelected}/>
-                <NavigationElement to='/exercises' label="exercises" char="E" selected={selected} setSelected={setSelected}/>
-                <NavigationElement to='/statistics' label="statistics" char="S" selected={selected} setSelected={setSelected}/>
-                <NavigationElement to='/profile' label="profile" char="P" selected={selected} setSelected={setSelected}/>
-            </nav>
-            <div className="pt-6">
+            <div className="p-3">
+                <p className="text-xs uppercase text-[#525252] tracking-[2px] px-3 py-5">Navigation</p>
+                <nav className="flex flex-col">
+                    <NavigationElement to='/' label="dashboard" char="D" selected={selected} setSelected={setSelected}/>
+                    <NavigationElement to='/workouts' label="workouts" char="W" selected={selected} setSelected={setSelected}/>
+                    <NavigationElement to='/exercises' label="exercises" char="E" selected={selected} setSelected={setSelected}/>
+                    <NavigationElement to='/statistics' label="statistics" char="S" selected={selected} setSelected={setSelected}/>
+                    <NavigationElement to='/profile' label="profile" char="P" selected={selected} setSelected={setSelected}/>
+                </nav>
+            </div>
+            <div className="pt-6 px-3">
                 <div className="flex justify-between items-center px-3 py-5 text-xs text-[#525252] uppercase tracking-[2px]">
                     <p>Today</p>
                     <p className="text-[#2A2A2A]">{currentDate}</p>
                 </div>
-                <div className="bg-[#111111] border border-[#1D1D1D] p-3">
+                <div className="bg-[#111111] border border-[#2A2A2A] p-3">
                     <div className="flex justify-between items-center">
                         <p className="text-xs text-[#6F6F6F]">Planned</p>
                         <PulseDot/>
@@ -66,6 +73,17 @@ export default function Sidebar() {
                     </div>
                     <div>
                         <p className="text-xs text-[#2A2A2A] tracking-[1px]">6 exercises ~75 min</p>
+                    </div>
+                </div>
+            </div>
+            <div className="absolute bottom-0 left-0 p-3 w-full border-t border-[#2A2A2A]">
+                <div className="flex items-center gap-4 p-2">
+                    <div className="bg-[#111111] border border-[#2A2A2A] p-2.5">
+                        <p className="text-[#EDEDED] text-xs">{userInitial}</p>
+                    </div>
+                    <div className="flex flex-col gap-y-0.5">
+                        <p className="text-[#EDEDED] text-sm font-medium">{user}</p>
+                        <p className="text-xs text-[#2A2A2A] tracking-[1px]">intermediate</p>
                     </div>
                 </div>
             </div>
