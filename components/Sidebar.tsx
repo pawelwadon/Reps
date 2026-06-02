@@ -4,10 +4,18 @@ import Icon from './Icon';
 import PulseDot from './PulseDot';
 import iconsPaths from '../assets/icons/iconsPaths';
 
-const SidebarHeader = () => {
+type SidebarHeaderProps = {
+    setActive:React.Dispatch<React.SetStateAction<boolean>>;
+    active:boolean;
+}
+
+const SidebarHeader = ({setActive, active} : SidebarHeaderProps) => {
     return(
-        <div className="flex items-center gap-3 px-6 py-6 border-b border-[#2A2A2A]">
+        <div className="flex items-center max-sm:justify-between gap-3 px-6 py-6 border-b border-[#2A2A2A] max-sm:bg-[#0B0B0B]">
             <img src='../assets/images/logo.webp' alt="logo" width={100} height={25} className="object-contain"/>
+            <button onClick={()=>setActive(!active)} className="block sm:hidden">
+                <Icon path={iconsPaths.menu} viewBox="0 0 330 330" color='fill-[#28FF7E]' width={24} height={24}/>
+            </button>
         </div>
     )
 };
@@ -104,12 +112,18 @@ const UserBadge = () => {
 };
 
 export default function Sidebar() {
+    const [active, setActive] = useState<boolean>(false);
+
     return (
-        <div className="min-h-screen relative bg-[#0B0B0B] border-r border-[#2A2A2A]">
-            <SidebarHeader/>
-            <Navbar/>
-            <TodayWorkoutCard/>
-            <UserBadge/>
+        <aside className="sm:w-1/3 sm:max-w-xs">
+        <div className="max-sm:w-full sm:h-screen relative bg-transparent sm:bg-[#0B0B0B] sm:border-r border-[#2A2A2A]">
+        <SidebarHeader setActive={setActive} active={active}/>
+            <div className={`max-sm:absolute max-sm:h-[calc(100vh-73px)] max-sm:${active ? 'w-3/4' : 'w-0 hidden'} sm:block max-sm:bg-[#0B0B0B] max-sm:border-r max-sm:border-[#2A2A2A]`}>
+                <Navbar/>
+                <TodayWorkoutCard/>
+                <UserBadge/>
+            </div>
         </div>
+        </aside>
     )
 };
