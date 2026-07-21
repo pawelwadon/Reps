@@ -11,10 +11,10 @@ type SidebarHeaderProps = {
 
 const SidebarHeader = ({setActive, active} : SidebarHeaderProps) => {
     return(
-        <div className="flex items-center max-sm:justify-between gap-3 px-6 py-6 border-b border-[#2A2A2A] max-sm:bg-[#0B0B0B]">
+        <div className="flex items-center max-sm:justify-between gap-3 px-6 py-6 border-b border-grey-primary max-sm:bg-[#0B0B0B]">
             <img src='../assets/images/logo.webp' alt="logo" width={100} height={25} className="object-contain"/>
             <button onClick={()=>setActive(!active)} className="block sm:hidden">
-                <Icon path={iconsPaths.menu} viewBox="0 0 330 330" color='fill-[#28FF7E]' width={24} height={24}/>
+                <Icon path={iconsPaths.menu} viewBox="0 0 330 330" color='fill-main-green' width={24} height={24}/>
             </button>
         </div>
     )
@@ -33,13 +33,13 @@ const NavigationElement = ({to, label, char, selected, setSelected} : Navigation
 
     return(
         <Link to={to} onClick={()=> setSelected(label)}>
-        <div className={`flex justify-between items-center relative px-3 py-2.5 cursor-pointer text-[#6F6F6F] hover:bg-[#111111] hover:text-[#EDEDED] border ${selected === label ? 'border-[#1D1D1D] text-[#EDEDED]' : 'border-transparent'}`}>
-            {selected === label && <span className="w-0.5 bg-[#28FF7E] h-8 absolute left-0"/>}
+        <div className={`flex justify-between items-center relative px-3 py-2.5 cursor-pointer text-text-primary hover:bg-grey-secondary hover:text-white-primary border ${selected === label ? 'border-[#1D1D1D] text-white-primary' : 'border-transparent'}`}>
+            {selected === label && <span className="w-0.5 bg-main-green h-8 absolute left-0"/>}
             <div className="flex items-center gap-3">
-                <Icon path={path} viewBox="0 0 512 512" color={`${selected === label ? 'fill-[#EDEDED]' : 'fill-[#6F6F6F]'}`} width={16} height={16}/>
+                <Icon path={path} viewBox="0 0 512 512" color={`${selected === label ? 'fill-white-primary' : 'fill-text-primary'}`} width={16} height={16}/>
                 <p className="capitalize text-sm font-normal">{label}</p>
             </div>
-            <p className="text-[#2A2A2A] text-xs">{char}</p>
+            <p className="text-grey-primary text-xs">{char}</p>
         </div>
         </Link>
     )
@@ -50,7 +50,7 @@ const Navbar = () => {
     
     return(
         <div className="p-3">
-            <p className="text-xs uppercase text-[#525252] tracking-[2px] px-3 py-5">Navigation</p>
+            <p className="text-xs uppercase text-text-secondary tracking-[2px] px-3 py-5">Navigation</p>
             <nav className="flex flex-col">
                 <NavigationElement to='/' label="dashboard" char="D" selected={selected} setSelected={setSelected}/>
                 <NavigationElement to='/workouts' label="workouts" char="W" selected={selected} setSelected={setSelected}/>
@@ -70,20 +70,20 @@ const TodayWorkoutCard = () => {
     
     return(
         <div className="pt-6 px-3">
-            <div className="flex justify-between items-center px-3 py-5 text-xs text-[#525252] uppercase tracking-[2px]">
+            <div className="flex justify-between items-center px-3 py-5 text-xs text-text-secondary uppercase tracking-[2px]">
                 <p>Today</p>
-                <p className="text-[#2A2A2A]">{currentDate}</p>
+                <p className="text-grey-primary">{currentDate}</p>
             </div>
-            <div className="bg-[#111111] border border-[#2A2A2A] p-3">
+            <div className="bg-grey-secondary border border-grey-primary p-3">
                 <div className="flex justify-between items-center">
-                    <p className="text-xs text-[#6F6F6F]">Planned</p>
+                    <p className="text-xs text-text-primary">Planned</p>
                     <PulseDot/>
                 </div>
                 <div className="pt-2 pb-1">
-                    <p className="text-[#EDEDED] text-sm font-medium">Push Day</p>
+                    <p className="text-white-primary text-sm font-medium">Push Day</p>
                 </div>
                 <div>
-                    <p className="text-xs text-[#2A2A2A] tracking-[1px]">6 exercises ~75 min</p>
+                    <p className="text-xs text-grey-primary tracking-[1px]">6 exercises ~75 min</p>
                 </div>
             </div>
         </div>
@@ -97,14 +97,14 @@ const UserBadge = () => {
     const userInitial = userName.charAt(0) + userSurname.charAt(0);
 
     return(
-        <div className="absolute bottom-0 left-0 p-3 w-full border-t border-[#2A2A2A]">
+        <div className="absolute bottom-0 left-0 p-3 w-full border-t border-grey-primary">
             <div className="flex items-center gap-4 p-2">
-                <div className="bg-[#111111] border border-[#2A2A2A] p-2.5">
-                    <p className="text-[#EDEDED] text-xs">{userInitial}</p>
+                <div className="bg-grey-secondary border border-grey-primary p-2.5">
+                    <p className="text-white-primary text-xs">{userInitial}</p>
                 </div>
                 <div className="flex flex-col gap-y-0.5">
-                    <p className="text-[#EDEDED] text-sm font-medium">{user}</p>
-                    <p className="text-xs text-[#2A2A2A] tracking-[1px]">intermediate</p>
+                    <p className="text-white-primary text-sm font-medium">{user}</p>
+                    <p className="text-xs text-grey-primary tracking-[1px]">intermediate</p>
                 </div>
             </div>
         </div>
@@ -116,9 +116,9 @@ export default function Sidebar() {
 
     return (
         <aside className="sm:w-1/3 sm:max-w-xs">
-        <div className="max-sm:w-full sm:h-screen relative bg-transparent sm:bg-[#0B0B0B] sm:border-r border-[#2A2A2A]">
+        <div className="max-sm:w-full sm:h-screen relative bg-transparent sm:bg-[#0B0B0B] sm:border-r border-grey-primary">
         <SidebarHeader setActive={setActive} active={active}/>
-            <div className={`max-sm:absolute max-sm:h-[calc(100vh-73px)] max-sm:${active ? 'w-3/4' : 'w-0 hidden'} sm:block max-sm:bg-[#0B0B0B] max-sm:border-r max-sm:border-[#2A2A2A]`}>
+            <div className={`max-sm:absolute max-sm:h-[calc(100vh-73px)] max-sm:${active ? 'w-3/4' : 'w-0 hidden'} sm:block max-sm:bg-[#0B0B0B] max-sm:border-r max-sm:border-grey-primary`}>
                 <Navbar/>
                 <TodayWorkoutCard/>
                 <UserBadge/>
