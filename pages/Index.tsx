@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PulseDot from '../components/PulseDot';
 import Button from '../components/Button';
 import Icon from '../components/Icon';
@@ -40,7 +41,6 @@ const SearchBar = () => {
         <div className='flex items-center p-4 gap-4 border border-grey-primary'>
             <Icon path={path} viewBox='0 0 511.999 511.999' color='fill-text-primary' width={20} height={20}/>
             <input name='search-bar' type='text' placeholder='Search' className='block text-sm text-text-primary font-normal uppercase tracking-[2px] outline-hidden'></input>
-            <span ></span>
         </div>
     )
 }
@@ -52,7 +52,7 @@ const TopHeader = () => {
         <div className="w-full flex justify-between items-end p-10 border-b border-grey-primary">
             <div className='flex flex-col gap-1.5'>
                 <SessionId/>
-                <h1 className="text-white-primary text-3xl font-semibold">Welcome back, {user}<span className="text-main-green">.</span></h1>
+                <span className="text-white-primary text-3xl font-semibold">Welcome back, {user}<span className="text-main-green">.</span></span>
                 <div className='text-text-primary text-sm font-normal flex gap-2'>
                     <span className='capitalize'>{currentDate}</span>
                     <span className='text-grey-primary'>/</span>
@@ -79,11 +79,86 @@ const Statistics = () => {
     )
 }
 
+type WorkoutLogProps = {
+    date:{
+        numeric:string,
+        when:string,
+    },
+    label:string,
+    exercises: number,
+    volume:number,
+    duration:string,
+}
+
+const WorkoutLog = ( {date, label, exercises, volume, duration} : WorkoutLogProps ) => {
+    return(
+        <li className='flex justify-between items-center py-3.5 border-b border-grey-primary last:border-none last:pb-0'>
+            <div className='flex flex-col text-xs'>
+                <span className='text-white-primary'>{date.numeric}</span>
+                <span className='text-text-secondary uppercase'>{date.when}</span>
+            </div>
+            <div className='block'>
+                <span className='text-white-primary text-base capitalize'>{label}</span>
+                <div className='text-text-secondary text-xs uppercase flex gap-2'>
+                    <span>{exercises} ex</span>
+                    <span>{volume} kg</span>
+                </div>
+            </div>
+            <div className='flex flex-col items-end'>
+                <span className='text-xs text-text-primary'>{duration}</span>
+                <Icon path={iconsPaths.arrow} viewBox='0 0 330 330' color='fill-text-secondary' width={10} height={10}/>
+            </div>
+        </li>
+    )
+}
+
+const SessionsLogs = () => {
+    return(
+        <div className="flex flex-col bg-grey-secondary border border-grey-primary">
+            <div className='p-4'>
+                <div className='pb-4'>
+                    <div className='flex items-center gap-2 text-xs tracking-[2px] pb-1.5'>
+                        <span className='text-text-secondary uppercase'>Log</span>
+                        <span className='text-grey-primary'>// 247 total</span>
+                    </div>
+                    <div className='flex justify-between items-end'>
+                        <span className='text-2xl text-white-primary capitalize font-medium'>Recent workouts</span>
+                        <span className='text-xs text-grey-primary uppercase'>Showing 5</span>
+                    </div>
+                </div>
+                <div>
+                    <ul className=''>
+                        <WorkoutLog date={{numeric:'13.05', when:'1d ago'}} label='Push day' exercises={6} volume={12400} duration='1h 12m'/>
+                        <WorkoutLog date={{numeric:'12.05', when:'2d ago'}} label='Pull day' exercises={7} volume={14120} duration='1h 18m'/>
+                        <WorkoutLog date={{numeric:'10.05', when:'4d ago'}} label='Legs day' exercises={5} volume={18900} duration='1h 32m'/>
+                        <WorkoutLog date={{numeric:'07.05', when:'7d ago'}} label='Push day' exercises={6} volume={11980} duration='1h 09m'/>
+                        <WorkoutLog date={{numeric:'05.05', when:'9d ago'}} label='Pull day' exercises={7} volume={13650} duration='1h 14m'/>
+                    </ul>
+                </div>
+            </div>
+            <div className='border-t border-grey-primary'>
+                <Link to={'/workouts'}>
+                    <div className='p-4 flex justify-between items-center'>
+                        <span className='text-xs uppercase text-text-primary tracking-[2px]'>View all workouts</span>
+                        <div className='flex items-center gap-2'>
+                            <span className='text-grey-primary text-xs'>242 more</span>
+                            <Icon path={iconsPaths.arrow} viewBox='0 0 330 330' color='fill-text-primary' width={12} height={12}/>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+        </div>
+    )
+}
+
 export default function Index() {
     return (
         <div>
             <TopHeader/>
             <Statistics/>
+            <div className='grid grid-cols-3 px-6'>
+                <SessionsLogs/>
+            </div>
         </div>
     )
 }
