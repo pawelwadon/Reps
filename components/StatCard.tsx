@@ -24,12 +24,12 @@ export default function StatCard( {index, icon, label, value, suffix, caption, t
                 <span className="text-grey-primary tracking-[2px]">{index}</span>
             </div>
             <div className="flex items-end gap-2">
-                <h2 className="text-white-primary font-medium text-5xl">{value}</h2>
-                <p className="text-base text-text-secondary">{suffix}</p>
+                <span className="text-white-primary font-medium text-5xl">{value}</span>
+                <span className="text-base text-text-secondary">{suffix}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-                <p className="text-text-primary">{caption}</p>
-                <p className="text-main-green">{tag}</p>
+                <span className="text-text-primary">{caption}</span>
+                <span className="text-main-green">{tag}</span>
             </div>
         </div>
     )
