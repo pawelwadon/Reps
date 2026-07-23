@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import Icon from '../components/Icon';
 import StatCard from '../components/StatCard';
 import iconsPaths from '../assets/icons/iconsPaths';
+import { useState } from "react";
 
 const currentDate = new Date().toLocaleDateString('pl-PL', {
         weekday: 'long',
@@ -40,7 +41,7 @@ const SearchBar = () => {
     return(
         <div className='flex items-center p-4 gap-4 border border-grey-primary'>
             <Icon path={path} viewBox='0 0 511.999 511.999' color='fill-text-primary' width={20} height={20}/>
-            <input name='search-bar' type='text' placeholder='Search' className='block text-sm text-text-primary font-normal uppercase tracking-[2px] outline-hidden'></input>
+            <input name='search-bar' type='search' placeholder='Search' className='block text-sm text-text-primary font-normal uppercase tracking-[2px] outline-hidden'></input>
         </div>
     )
 }
@@ -77,6 +78,50 @@ const Statistics = () => {
             <StatCard index='04' icon={{path:iconsPaths.trophy, viewBox:'0 0 297 297'}} label='Last PR' value={100} suffix='x 5' caption='Bench Press' tag='+2.5 kg'/>
         </div>
     )
+};
+
+type TimespanButtonProps = {
+    timespan:string,
+    selectedTimespan:string,
+    setSelectedTimespan: React.Dispatch<React.SetStateAction<string>>,
+}
+
+const TimespanButton = ( {timespan, selectedTimespan, setSelectedTimespan} : TimespanButtonProps) => {
+    return(
+        <button type="button" onClick={()=>setSelectedTimespan(timespan)} className={`p-2 border border-grey-primary text-sm uppercase hover:text-white-primary ${selectedTimespan===timespan ? 'text-white-primary' : 'text-text-secondary'} ease-in duration-75`}>{timespan}</button>
+    )
+};
+
+const ProgressChart = () => {
+
+    const [selectedExercise, setSelectedExercise] = useState<string>('Bench Press');
+    const [selectedTimespan, setSelectedTimespan] = useState<string>('');
+
+    return(
+        <div className="col-span-2 bg-grey-secondary border border-grey-primary p-4">
+            <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2 text-xs tracking-[2px]'>
+                    <span className='text-text-secondary uppercase'>Progress</span>
+                    <span className='text-grey-primary'>// e1RM</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="h-max">
+                        <TimespanButton timespan='1m' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
+                        <TimespanButton timespan='3m' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
+                        <TimespanButton timespan='6m' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
+                        <TimespanButton timespan='1y' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
+                    </div>
+                    <select onChange={ e => setSelectedExercise(e.target.value)} name="selectedExercise" value={selectedExercise} className="text-white-primary text-sm border border-grey-primary p-2 outline-none h-9.5">
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="Squats">Squats</option>
+                        <option value="Cable Rows">Cable Rows</option>
+                        <option value="Deadlifts">Deadlifts</option>
+                    </select>
+                </div>
+            </div>
+            <span className='text-2xl text-white-primary capitalize font-medium'>{selectedExercise}</span>
+        </div>
+    )
 }
 
 type WorkoutLogProps = {
@@ -88,7 +133,7 @@ type WorkoutLogProps = {
     exercises: number,
     volume:number,
     duration:string,
-}
+};
 
 const WorkoutLog = ( {date, label, exercises, volume, duration} : WorkoutLogProps ) => {
     return(
@@ -114,7 +159,7 @@ const WorkoutLog = ( {date, label, exercises, volume, duration} : WorkoutLogProp
 
 const SessionsLogs = () => {
     return(
-        <div className="flex flex-col bg-grey-secondary border border-grey-primary">
+        <div className="flex flex-col bg-grey-secondary border border-grey-primary col-span-1">
             <div className='p-4'>
                 <div className='pb-4'>
                     <div className='flex items-center gap-2 text-xs tracking-[2px] pb-1.5'>
@@ -156,7 +201,8 @@ export default function Index() {
         <div>
             <TopHeader/>
             <Statistics/>
-            <div className='grid grid-cols-3 px-6'>
+            <div className='grid grid-cols-3 px-6 gap-6'>
+                <ProgressChart/>
                 <SessionsLogs/>
             </div>
         </div>
