@@ -219,7 +219,7 @@ const PersonalRecords = () => {
 
 export default function Index() {
     return (
-        <section>
+        <section className="h-screen overflow-y-scroll scrollbar-thumb-grey-secondary">
             <TopHeader/>
             <div className="p-6">
                 <Statistics/>
