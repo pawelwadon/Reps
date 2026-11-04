@@ -40,9 +40,9 @@ const SearchBar = () => {
     const path = iconsPaths.loop;
 
     return(
-        <div className='flex items-center p-4 gap-4 border border-grey-primary'>
+        <div className='flex w-full min-w-0 items-center gap-4 border border-grey-primary p-4 sm:w-auto'>
             <Icon path={path} viewBox='0 0 511.999 511.999' color='fill-text-primary' width={20} height={20}/>
-            <input name='search-bar' type='search' placeholder='Search' className='block text-sm text-text-primary font-normal uppercase tracking-[2px] outline-hidden'></input>
+            <input name='search-bar' type='search' placeholder='Search' className='block w-full min-w-0 text-sm text-text-primary font-normal uppercase tracking-[2px] outline-hidden sm:w-auto'></input>
         </div>
     )
 }
@@ -50,9 +50,12 @@ const SearchBar = () => {
 const user = 'Paweł';
 
 const TopHeader = () => {
+
+    const path = iconsPaths.plus;
+
     return(
-        <div className="w-full flex justify-between items-end p-10 border-b border-grey-primary">
-            <div className='flex flex-col gap-1.5'>
+        <div className="flex w-full flex-col gap-6 border-b border-grey-primary p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:p-10">
+            <div className='flex w-full flex-col gap-1.5 sm:w-auto'>
                 <SessionId/>
                 <span className="text-white-primary text-3xl font-semibold">Welcome back, {user}<span className="text-main-green">.</span></span>
                 <div className='text-text-primary text-sm font-normal flex gap-2'>
@@ -61,10 +64,12 @@ const TopHeader = () => {
                     <span>Week 20 - Day 137 of program</span>
                 </div>
             </div>
-            <div className='flex items-center gap-4'>
+            <div className='flex w-full items-center gap-4 sm:w-auto'>
                 <SearchBar/>
                 <Notification/>
-                <Button label='+ Start Workout'/>
+                <div>
+                    <Button label='Start Workout'/>
+                </div>
             </div>
         </div>
     )    
