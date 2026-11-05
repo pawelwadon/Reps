@@ -51,10 +51,8 @@ const user = 'Paweł';
 
 const TopHeader = () => {
 
-    const path = iconsPaths.plus;
-
     return(
-        <div className="flex w-full flex-col gap-6 border-b border-grey-primary p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-4 sm:p-10">
+        <div className="flex w-full flex-col gap-6 border-b border-grey-primary p-6 lg:flex-row lg:items-center sm:justify-between sm:gap-4 sm:p-10">
             <div className='flex w-full flex-col gap-1.5 sm:w-auto'>
                 <SessionId/>
                 <span className="text-white-primary text-3xl font-semibold">Welcome back, {user}<span className="text-main-green">.</span></span>
@@ -77,7 +75,7 @@ const TopHeader = () => {
 
 const Statistics = () => {
     return(
-        <div className='grid grid-cols-4 gap-6 mb-6'>
+        <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6'>
             <StatCard index='01' icon={{path:iconsPaths.streak, viewBox:'0 0 512 512'}} label='Current streak' value={12} suffix='wks' caption='weeks active' tag='best ever'/>
             <StatCard index='02' icon={{path:iconsPaths.calendar, viewBox:'0 0 512 512'}} label='This week' value={4} suffix='/ 5' caption='workouts completed'/>
             <StatCard index='03' icon={{path:iconsPaths.weight, viewBox:'0 0 512 512'}} label='Volume' value={24580} suffix='kg' caption='vs last week' tag='+8.2%'/>
@@ -104,13 +102,13 @@ const ProgressChart = () => {
     const [selectedTimespan, setSelectedTimespan] = useState<string>('');
 
     return(
-        <div className="col-span-2 bg-grey-secondary border border-grey-primary p-4">
-            <div className='flex items-center justify-between'>
+        <div className="lg:col-span-2 bg-grey-secondary border border-grey-primary p-4 flex flex-col gap-2 md:gap-0">
+            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-2'>
                 <div className='flex items-center gap-2 text-xs tracking-[2px]'>
                     <span className='text-text-secondary uppercase'>Progress</span>
                     <span className='text-grey-primary'>// e1RM</span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex justify-between md:items-center gap-3">
                     <div className="h-max">
                         <TimespanButton timespan='1m' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
                         <TimespanButton timespan='3m' selectedTimespan={selectedTimespan} setSelectedTimespan={setSelectedTimespan}/>
@@ -165,7 +163,7 @@ const WorkoutLog = ( {date, label, exercises, volume, duration} : WorkoutLogProp
 
 const SessionsLogs = () => {
     return(
-        <div className="flex flex-col bg-grey-secondary border border-grey-primary col-span-1">
+        <div className="flex flex-col bg-grey-secondary border border-grey-primary lg:col-span-1">
             <div className='p-4'>
                 <div className='pb-4'>
                     <div className='flex items-center gap-2 text-xs tracking-[2px] pb-1.5'>
@@ -204,7 +202,7 @@ const SessionsLogs = () => {
 
 const PersonalRecords = () => {
     return(
-        <div className="">
+        <div>
             <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2 text-xs tracking-[2px]">
                     <span className="text-text-secondary uppercase">PERSONAL RECORDS</span>
@@ -212,7 +210,7 @@ const PersonalRecords = () => {
                 </div>
                 <span className="text-2xl text-white-primary font-medium">Recent PRs</span>
             </div>
-            <div className="grid grid-cols-4 gap-6 pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-6">
                 <PRCard label="Deadlift" volume={200} reps={3} date={{day:'14 May', when:'0d ago'}}/>
                 <PRCard label="Deadlift" volume={200} reps={3} date={{day:'14 May', when:'0d ago'}}/>
                 <PRCard label="Deadlift" volume={200} reps={3} date={{day:'14 May', when:'0d ago'}}/>
@@ -228,7 +226,7 @@ export default function Index() {
             <TopHeader/>
             <div className="p-6">
                 <Statistics/>
-                <div className='grid grid-cols-3 gap-6 mb-6'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6'>
                     <ProgressChart/>
                     <SessionsLogs/>
                 </div>
