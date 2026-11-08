@@ -5,7 +5,19 @@ import Icon from '../components/Icon';
 import StatCard from '../components/StatCard';
 import PRCard from '../components/PRCard';
 import iconsPaths from '../assets/icons/iconsPaths';
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
+    type ChartOptions,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
 const currentDate = new Date().toLocaleDateString('pl-PL', {
         weekday: 'long',
@@ -96,10 +108,98 @@ const TimespanButton = ( {timespan, selectedTimespan, setSelectedTimespan} : Tim
     )
 };
 
+type VolumePoint = {
+    date: string,
+    kg: number,
+};
+
+const exerciseVolume: Record<string, VolumePoint[]> = {
+    'Bench Press': [
+        { date: '2026-11-03', kg: 3120 },
+        { date: '2026-11-04', kg: 3280 },
+        { date: '2026-11-05', kg: 3010 },
+        { date: '2026-11-06', kg: 3450 },
+        { date: '2026-11-07', kg: 3620 },
+    ],
+    'Squats': [
+        { date: '2026-11-03', kg: 5400 },
+        { date: '2026-11-04', kg: 5120 },
+        { date: '2026-11-05', kg: 5680 },
+        { date: '2026-11-06', kg: 5510 },
+        { date: '2026-11-07', kg: 5900 },
+    ],
+    'Cable Rows': [
+        { date: '2026-11-03', kg: 1860 },
+        { date: '2026-11-04', kg: 1920 },
+        { date: '2026-11-05', kg: 1780 },
+        { date: '2026-11-06', kg: 2040 },
+        { date: '2026-11-07', kg: 2110 },
+    ],
+    'Deadlifts': [
+        { date: '2026-11-03', kg: 6200 },
+        { date: '2026-11-04', kg: 6050 },
+        { date: '2026-11-05', kg: 6480 },
+        { date: '2026-11-06', kg: 6320 },
+        { date: '2026-11-07', kg: 6710 },
+    ],
+};
+
+const formatVolumeDate = (isoDate: string) => {
+    const [, month, day] = isoDate.split('-');
+    return `${day}.${month}`;
+};
+
+const volumeChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: { display: false },
+        tooltip: {
+            callbacks: {
+                label: (context) => `${context.parsed.y} kg`,
+            },
+        },
+    },
+    scales: {
+        x: {
+            ticks: { color: '#6F6F6F' },
+            grid: { color: '#2A2A2A' },
+            border: { color: '#2A2A2A' },
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'kg',
+                color: '#6F6F6F',
+            },
+            ticks: { color: '#6F6F6F' },
+            grid: { color: '#2A2A2A' },
+            border: { color: '#2A2A2A' },
+        },
+    },
+};
+
 const ProgressChart = () => {
 
     const [selectedExercise, setSelectedExercise] = useState<string>('Bench Press');
     const [selectedTimespan, setSelectedTimespan] = useState<string>('');
+
+    const volumePoints = exerciseVolume[selectedExercise] ?? [];
+
+    const chartData = useMemo(() => ({
+        labels: volumePoints.map((point) => formatVolumeDate(point.date)),
+        datasets: [
+            {
+                label: 'Volume',
+                data: volumePoints.map((point) => point.kg),
+                borderColor: '#28FF7E',
+                backgroundColor: '#28FF7E',
+                pointRadius: 4,
+                pointHoverRadius: 5,
+                tension: 0.3,
+            },
+        ],
+    }), [volumePoints]);
 
     return(
         <div className="lg:col-span-2 bg-grey-secondary border border-grey-primary p-4 flex flex-col gap-2 md:gap-0">
@@ -124,6 +224,9 @@ const ProgressChart = () => {
                 </div>
             </div>
             <span className='text-2xl text-white-primary capitalize font-medium'>{selectedExercise}</span>
+            <div className="mt-4 h-64">
+                <Line data={chartData} options={volumeChartOptions} />
+            </div>
         </div>
     )
 }
